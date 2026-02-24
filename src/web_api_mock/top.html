@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modal Sample</title>
+  <link rel="stylesheet" href="./signup-modal.css">
+</head>
+<body>
+  <button id="openModalBtn">新規登録画面を開く</button>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <span class="close-btn" id="closeModalBtn">✖</span>
+      <h2>新規アカウント登録</h2>
+
+      <fieldset class="section">
+        <legend>アカウント情報の入力</legend>
+        <div class="form-group">
+          <label for="">
+            メールアドレス
+            <input type="email" placeholder="example@test.com">
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="">
+            パスワード
+            <input type="password" placeholder="8文字以上で入力">
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="section">
+        <legend>利用規約の同意</legend>
+        <div class="form-group">
+          <label for="">
+            <input type="checkbox" id="agreeCheckbox">
+            当サービスの利用規約を確認し、これに同意します
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button class="signup-btn" id="signupBtn" disabled>サインアップ</button>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./signupModal.js"></script>
+<script>
+  document.getElementById('openModalBtn').addEventListener('click', () => createSignupModal().open());
+</script>
+</html>
