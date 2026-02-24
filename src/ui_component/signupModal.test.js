@@ -1,10 +1,13 @@
 /**
  * テスト観点
+ * 
  * 1. 関数の単体テスト
  *  1-1. open()でモーダルが表示される
  *  1-2. close()でモーダルが非表示になる
- *  1-3. 不正なメール形式でチェック結果がfalseになる
- *  1-4. 不正なパスワード形式でチェック結果がfalseになる
+ *  1-3. submit()がサーバからのレスポンスを返す
+ *  1-4. 不正なメール形式でチェック結果がfalseになる
+ *  1-5. 不正なパスワード形式でチェック結果がfalseになる
+ * 
  * 2. UI操作の単体テスト
  *  2-1. チェックボックスONでサインアップボタンが活性化する
  *  2-2. チェックボックスOFFでサインアップボタンが非活性化する
@@ -70,6 +73,13 @@ describe('Signup Modal', () => {
       expect(modal.overlay.style.display).toBe('none');
     });
 
+    test('submit()がサーバからのレスポンスを返す', async () => {
+      const email = emailInput.value;
+      const password = passwordInput.value;
+      const response = await submit({ email, password });
+      expect(response).toEqual({ ok: true });
+    });
+
     test('不正なメール形式でチェック結果がfalseになる', () => {
       expect(validateEmail('invalid-email')).not.toBeTruthy();
     });
@@ -77,13 +87,6 @@ describe('Signup Modal', () => {
     test('不正なパスワード形式でチェック結果がfalseになる', () => {
       expect(validatePassword('pass123')).not.toBeTruthy();
     });
-
-    // test('メールとパスワードを送信するとresponseがokで返ってくること', async () => {
-    //   const email = emailInput.value;
-    //   const password = passwordInput.value;
-    //   const response = await submit({ email, password });
-    //   expect(response).toEqual({ ok: true });
-    // });
   });
 
   describe('UI操作の単体テスト', () => {
