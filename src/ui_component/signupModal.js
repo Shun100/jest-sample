@@ -22,6 +22,27 @@ function createSignupModal() {
     overlay.style.display = 'none';
   });
 
+  signupBtn.addEventListener('click', async () => {
+    const email = document.getElementById('emailInput').value;
+    const password = document.getElementById('passwordInput').value;
+    let isValid = true;
+    let response = {};
+
+    if (!validateEmail(email)) {
+      document.getElementById('emailErrorMessage').textContent = 'メールアドレスの形式が不正です';
+      isValid = false;
+    }
+
+    if (!validatePassword(password)) {
+      document.getElementById('passwordErrorMessage').textContent = 'パスワードは8文字以上必要です';
+      isValid = false;
+    }
+
+    if (isValid && submit({ email, password })) {
+      overlay.style.display = 'none';
+    }
+  });
+
   return {
     open: () => overlay.style.display = 'flex',
     close: () => overlay.style.display = 'none',
@@ -29,4 +50,22 @@ function createSignupModal() {
   }
 }
 
-module.exports = { createSignupModal };
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function validatePassword(password) {
+  return password.length >= 8;
+}
+
+async function submit(data) {
+  const response = await fetch('https://example.com/api/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+
+  return response;
+}
+
+module.exports = { createSignupModal, validateEmail, validatePassword, submit };
