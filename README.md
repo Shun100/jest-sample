@@ -2,13 +2,14 @@
 
 ## 環境構築
 - `Node.js`をインストール
-- ソースコードをクローン
-  - `git clone https://github.com/frontend-testing-book/unittest`
 - 依存モジュールをインストール
   - `npm install`
 
 ## 実行方法
-- `npm test`
+- 全テスト実行
+  - `npm test -- --coverage`
+- 指定したファイルだけテスト実行
+  - `npm test -- hoge/hoge.test.js --coverage`
 
 ## 検証方法
 - 真偽値
@@ -56,3 +57,6 @@
     expect(hoge()).toMatchObject({ author: 'hoge', title: 'hoge' });  // 部分一致
     expect(hoge()).toHaveProperty('author');  // プロパティの有無
   ```
+
+- UIコンポーネント
+  - 作成中
